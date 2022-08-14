@@ -1,6 +1,77 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 20:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.postRelease = void 0;
+const https = __importStar(__nccwpck_require__(211));
+const core = __importStar(__nccwpck_require__(186));
+/**
+ * @description HTTP client for the API
+ *
+ * @param {string} url - The URL of the API
+ * @param {string} header - The Header to be used for authentication
+ * @param {Object} data - The HTTP method to be used
+ */
+function postRelease(url, header, data) {
+    let dataStr = JSON.stringify(data);
+    const options = {
+        hostname: "api.minebbs.com",
+        port: 443,
+        path: url,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': dataStr.length
+        }
+    };
+    const req = https.request(options, res => {
+        core.debug(`Status Code: ${res.statusCode}`);
+        res.on('data', d => {
+            let data = JSON.parse(d);
+            core.debug(`data: ${JSON.stringify(data)}`);
+            if (data.success) {
+                core.info("Release Success");
+            }
+            else {
+                core.error(`Status Code:${data.status} Message:${data.message}`);
+            }
+        });
+    });
+    req.on('error', error => {
+        core.error(error);
+    });
+    req.write(data);
+    req.end();
+}
+exports.postRelease = postRelease;
+
+
+/***/ }),
+
 /***/ 109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -36,16 +107,43 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const wait_1 = __nccwpck_require__(817);
+const fs = __importStar(__nccwpck_require__(747));
+const htl = __importStar(__nccwpck_require__(20));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ms = core.getInput('milliseconds');
-            core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
-            core.debug(new Date().toTimeString());
-            yield (0, wait_1.wait)(parseInt(ms, 10));
-            core.debug(new Date().toTimeString());
-            core.setOutput('time', new Date().toTimeString());
+            /*{
+              "title": "", // 更新标题
+              "description": "", // 更新内容描述
+              "new_version": "", // 新版本号
+              "file_key": "", // 文件Key，只能上传一个文件(可选)
+              "file_url": "" // 文件URL(可选)
+            }*/
+            //获取参数
+            let description = "";
+            let description_file = "";
+            const resources = core.getInput('resources');
+            const token = core.getInput('token');
+            const title = core.getInput('title');
+            const new_version = core.getInput('new_version');
+            if (!!core.getInput('description_file')) {
+                description_file = core.getInput('description_file');
+                description = fs.readFileSync(description_file, 'utf8');
+            }
+            else {
+                description = core.getInput("description");
+            }
+            const file_url = core.getInput('file_url');
+            //组合信息
+            const submitUrl = `/api/openapi/v1/resources/${resources}/update`;
+            const header = `{"Authorization": "Bearer ${token}"}`;
+            const data = {
+                "title": title,
+                "description": description,
+                "file_url": file_url,
+                "new_version": new_version
+            };
+            let res = htl.postRelease(submitUrl, header, data);
         }
         catch (error) {
             if (error instanceof Error)
@@ -54,37 +152,6 @@ function run() {
     });
 }
 run();
-
-
-/***/ }),
-
-/***/ 817:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.wait = void 0;
-function wait(milliseconds) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(resolve => {
-            if (isNaN(milliseconds)) {
-                throw new Error('milliseconds not a number');
-            }
-            setTimeout(() => resolve('done!'), milliseconds);
-        });
-    });
-}
-exports.wait = wait;
 
 
 /***/ }),
