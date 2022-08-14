@@ -28,9 +28,18 @@ async function run(): Promise<void> {
     }
 
     const file_url: string = core.getInput('file_url')
+    core.debug(`description: ${description}`)
+    core.debug(`description_file: ${description_file}`)
+    core.debug(`resources: ${resources}`)
+    core.debug(`title: ${title}`)
+    core.debug(`new_version: ${new_version}`)
+    core.debug(`file_url: ${file_url}`)
+
 
     //组合信息
     const submitUrl:string = `/api/openapi/v1/resources/${resources}/update`
+    core.debug(submitUrl)
+
     const data:Object = {
       "title": title,
       "description": description,
@@ -38,6 +47,8 @@ async function run(): Promise<void> {
       "new_version": new_version
     }
     let dataStr = JSON.stringify(data)
+    core.debug(dataStr)
+
     let res = htl.postRelease(submitUrl, token, dataStr)
   } 
   catch (error) {
