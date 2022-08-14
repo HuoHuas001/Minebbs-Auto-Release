@@ -135,7 +135,7 @@ function run() {
                 description_file = core.getInput('description_file');
                 description = fs.readFileSync(description_file, 'utf8');
                 //转译json
-                description = description.replace("\r", "");
+                description = description.replaceAll("\r", "");
             }
             else {
                 description = core.getInput("description");
