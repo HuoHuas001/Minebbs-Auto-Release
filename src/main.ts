@@ -47,7 +47,7 @@ async function run(): Promise<void> {
       "new_version": new_version
     }
     let dataStr = JSON.stringify(data)
-    core.debug(dataStr)
+    core.debug("data:"+dataStr)
 
     let res = htl.postRelease(submitUrl, token, dataStr)
   } 
