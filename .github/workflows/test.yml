@@ -8,6 +8,7 @@ on: # rebuild any PRs and main branch changes
     paths:
       - 'src/*.ts'
       - '.github/workflows/test.yml'
+      
 
 jobs:
   build: # make sure build/ci work properly
