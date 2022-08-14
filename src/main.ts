@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
-//import * as htl from "./httplib"
+import * as htl from "./httplib"
 
 async function run(): Promise<void> {
   try {
@@ -49,7 +49,7 @@ async function run(): Promise<void> {
     let dataStr = JSON.stringify(data)
     core.debug("data:"+dataStr)
 
-    //let res = htl.postRelease(submitUrl, token, dataStr)
+    let res = htl.postRelease(submitUrl, token, dataStr)
   } 
   catch (error) {
     if (error instanceof Error) core.setFailed(error.message)

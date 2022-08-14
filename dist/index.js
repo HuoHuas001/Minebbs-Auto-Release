@@ -1,6 +1,77 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 20:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.postRelease = void 0;
+const https = __importStar(__nccwpck_require__(211));
+const core = __importStar(__nccwpck_require__(186));
+/**
+ * @description HTTP client for the API
+ *
+ * @param {string} url - The URL of the API
+ * @param {string} header - The Header to be used for authentication
+ * @param {string} data - The HTTP method to be used
+ */
+function postRelease(url, token, data) {
+    const options = {
+        hostname: "api.minebbs.com",
+        port: 443,
+        path: url,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length,
+            "Authorization": "Bearer " + token
+        }
+    };
+    const req = https.request(options, res => {
+        core.debug(`Status Code: ${res.statusCode}`);
+        res.on('data', d => {
+            let datas = JSON.parse(d);
+            core.debug(`data: ${d}`);
+            if (datas.success) {
+                core.info("Release Success");
+            }
+            else {
+                core.error(`Status Code:${datas.status} Message:${datas.message}`);
+            }
+        });
+    });
+    req.on('error', error => {
+        core.error(error);
+    });
+    req.write(data);
+    req.end();
+}
+exports.postRelease = postRelease;
+
+
+/***/ }),
+
 /***/ 109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -37,7 +108,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
 const fs = __importStar(__nccwpck_require__(747));
-//import * as htl from "./httplib"
+const htl = __importStar(__nccwpck_require__(20));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -80,7 +151,7 @@ function run() {
             };
             let dataStr = JSON.stringify(data);
             core.debug("data:" + dataStr);
-            //let res = htl.postRelease(submitUrl, token, dataStr)
+            let res = htl.postRelease(submitUrl, token, dataStr);
         }
         catch (error) {
             if (error instanceof Error)
