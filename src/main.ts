@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
-const htl = require('./httplib.js')
+import * as htl from "./httplib"
 
 async function run(): Promise<void> {
   try {
@@ -37,7 +37,8 @@ async function run(): Promise<void> {
       "file_url": file_url,
       "new_version": new_version
     }
-    let res = htl.postRelease(submitUrl, token, data)
+    let dataStr = JSON.stringify(data)
+    let res = htl.postRelease(submitUrl, token, dataStr)
   } 
   catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
