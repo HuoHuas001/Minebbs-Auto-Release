@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          npm install
+          npm install -D --force
       - run: |
-          npm run all
+          npm run all -D --force
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
