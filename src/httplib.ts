@@ -1,4 +1,4 @@
-import * as https from 'https'
+/*import * as https from 'https'
 import * as core from '@actions/core'
 
 /**
@@ -7,7 +7,7 @@ import * as core from '@actions/core'
  * @param {string} url - The URL of the API
  * @param {string} header - The Header to be used for authentication
  * @param {string} data - The HTTP method to be used
- */
+ *
 export function postRelease(url:string, token:string, data:String) {
   const options:Object = {
     hostname: "api.minebbs.com",
@@ -42,4 +42,4 @@ export function postRelease(url:string, token:string, data:String) {
   
   req.write(data)
   req.end()
-}
+}*/

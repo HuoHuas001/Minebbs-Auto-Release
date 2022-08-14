@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
-import * as htl from "./httplib"
+//import * as htl from "./httplib"
 
 async function run(): Promise<void> {
   try {
