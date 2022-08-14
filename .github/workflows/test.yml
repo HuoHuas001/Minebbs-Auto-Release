@@ -28,3 +28,4 @@ jobs:
           title: ${{ github.ref_name }}
           new_version: ${{ github.ref_name }}
           description_file: './CHANGELOG.md'
+          file_url: 'https://github.com/HuoHuas001/Minebbs-Auto-Release/releases/latest'
