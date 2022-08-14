@@ -22,6 +22,8 @@ async function run(): Promise<void> {
     if(!!core.getInput('description_file')){
       description_file = core.getInput('description_file')
       description = fs.readFileSync(description_file, 'utf8')
+      //转译json
+      description = description.replace("\r","")
     }
     else{
       description = core.getInput("description")
