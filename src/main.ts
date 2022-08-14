@@ -49,7 +49,7 @@ async function run(): Promise<void> {
     let dataStr = JSON.stringify(data)
     core.debug("data:"+dataStr)
 
-    let res = htl.postRelease(submitUrl, token, dataStr)
+    //let res = htl.postRelease(submitUrl, token, dataStr)
   } 
   catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
