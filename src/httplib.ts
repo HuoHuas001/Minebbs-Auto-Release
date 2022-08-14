@@ -8,7 +8,7 @@ import * as core from '@actions/core'
  * @param {string} header - The Header to be used for authentication
  * @param {Object} data - The HTTP method to be used
  */
-export function postRelease(url:string, header:string, data:Object) {
+export function postRelease(url:string, token:string, data:Object) {
   let dataStr:string = JSON.stringify(data)
   const options:Object = {
     hostname: "api.minebbs.com",
@@ -17,7 +17,8 @@ export function postRelease(url:string, header:string, data:Object) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Content-Length': dataStr.length
+      'Content-Length': dataStr.length,
+      "Authorization": "Bearer "+token
     }
   }
 
@@ -40,6 +41,6 @@ export function postRelease(url:string, header:string, data:Object) {
     core.error(error)
   })
   
-  req.write(data)
+  req.write(dataStr)
   req.end()
 }

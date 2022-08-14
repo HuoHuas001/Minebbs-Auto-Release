@@ -31,14 +31,13 @@ async function run(): Promise<void> {
 
     //组合信息
     const submitUrl:string = `/api/openapi/v1/resources/${resources}/update`
-    const header:string = `{"Authorization": "Bearer ${token}"}`
     const data:Object = {
       "title": title,
       "description": description,
       "file_url": file_url,
       "new_version": new_version
     }
-    let res = htl.postRelease(submitUrl, header, data)
+    let res = htl.postRelease(submitUrl, token, data)
   } 
   catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
