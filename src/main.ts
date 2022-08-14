@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
-import * as htl from "./httplib"
+const htl = require('./httplib.js')
 
 async function run(): Promise<void> {
   try {

@@ -1,5 +1,5 @@
-import * as https from 'https'
-import * as core from '@actions/core'
+const https = require("https")
+const core = require('@actions/core')
 
 /**
  * @description HTTP client for the API
@@ -8,16 +8,16 @@ import * as core from '@actions/core'
  * @param {string} header - The Header to be used for authentication
  * @param {Object} data - The HTTP method to be used
  */
-export function postRelease(url:string, token:string, data:Object) {
-  let dataStr:string = JSON.stringify(data)
-  const options:Object = {
+exports.postRelease = function(url, token, data) {
+  let dataStr = JSON.stringify(data)
+  
+  const options = {
     hostname: "api.minebbs.com",
     port: 443,
     path: url,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Content-Length': dataStr.length,
       "Authorization": "Bearer "+token
     }
   }
@@ -27,7 +27,7 @@ export function postRelease(url:string, token:string, data:Object) {
   
     res.on('data', d => {
       let data = JSON.parse(d)
-      core.debug(`data: ${JSON.stringify(data)}`)
+      core.debug(`data: ${d}`)
       if(data.success){
         core.info("Release Success")
       }
