@@ -1,0 +1,28 @@
+resources: # change this # 参数名,
+    required: true # 是否是必填
+    description: "resources Id" # 参数的说明
+    default: "1" # 默认值
+  token: # change this # 参数名,
+    required: true # 是否是必填
+    description: "Minebbs API Token" # 参数的说明
+    default: "abcdedfg1234" # 默认值
+  title: # change this # 参数名,
+    required: true # 是否是必填
+    description: "Resources Update Title" # 参数的说明
+    default: "title" # 默认值
+  new_version: # change this # 参数名,
+    required: true # 是否是必填
+    description: "new Version Number" # 参数的说明
+    default: "v0.0.1" # 默认值
+  description_file: # change this # 参数名,
+    required: false # 是否是必填
+    description: "Resources Update description File (The "description_file" and "description" parameters must be one of the following)" # 参数的说明
+    default: "./CHANGELOG.md" # 默认值
+  description:
+    required: false # 是否是必填
+    description: "Resources Update description String (The "description_file" and "description" parameters must be one of the following)" # 参数的说明
+    default: "update" # 默认值
+  file_url:
+    required: true # 是否是必填
+    description: "Resource Download Url" # 参数的说明
+    default: "https://github.com/author/repos/releases/latest" # 默认值
