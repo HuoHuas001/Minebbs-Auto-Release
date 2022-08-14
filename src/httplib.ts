@@ -25,14 +25,20 @@ export function postRelease(url:string, token:string, data:String) {
     core.debug(`Status Code: ${res.statusCode}`)
   
     res.on('data', d => {
-      let datas = JSON.parse(d)
       core.debug(`data: ${d}`)
-      if(datas.success){
-        core.info("Release Success")
+      try{
+        let datas = JSON.parse(d)
+        if(datas.success){
+          core.info("Release Success")
+        }
+        else{
+          core.error(`Status Code:${datas.status} Message:${datas.message}`)
+        }
       }
-      else{
-        core.error(`Status Code:${datas.status} Message:${datas.message}`)
+      catch(err){
+        core.error(`Recive Data:${err}`)
       }
+      
     })
   })
   
