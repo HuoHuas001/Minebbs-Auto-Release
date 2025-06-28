@@ -1,40 +1,38 @@
 name: 'Minebbs-Auto-Release'
-description: 'Automatic release of versions of Minebbs resources'
+description: 'Automatically publish resource updates to Minebbs'
 author: 'HuoHua'
-inputs: 
-  resources: # change this # 参数名,
-    required: true # 是否是必填
-    description: "resources Id" # 参数的说明
-    default: "1" # 默认值
-  token: # change this # 参数名,
-    required: true # 是否是必填
-    description: "Minebbs API Token" # 参数的说明
-    default: "abcdedfg1234" # 默认值
-  title: # change this # 参数名,
-    required: true # 是否是必填
-    description: "Resources Update Title" # 参数的说明
-    default: "title" # 默认值
-  new_version: # change this # 参数名,
-    required: true # 是否是必填
-    description: "new Version Number" # 参数的说明
-    default: "v0.0.1" # 默认值
-  description_file: # change this # 参数名,
-    required: false # 是否是必填
-    description: 'Resources Update description File (The "description_file" and "description" parameters must be one of the following)' # 参数的说明
-    default: "./CHANGELOG.md" # 默认值
+
+inputs:
+  resources:
+    required: true
+    description: "Minebbs资源ID (数字)"
+  token:
+    required: true
+    description: "Minebbs API Token (从仓库Secrets获取)"
+  title:
+    required: true
+    description: "更新标题 (通常使用版本号如 v1.0.0)"
+    default: "v0.0.1"
+  new_version:
+    required: true
+    description: "新版本号"
+    default: "v0.0.1"
+  description_file:
+    required: false
+    description: "更新描述文件路径 (与description二选一)"
+    default: "./CHANGELOG.md"
   description:
-    required: false # 是否是必填
-    description: 'Resources Update description String (The "description_file" and "description" parameters must be one of the following)' # 参数的说明
-    default: "update" # 默认值
+    required: false
+    description: "更新描述文本 (与description_file二选一)"
   file_url:
-    required: true # 是否是必填
-    description: "Resource Download Url" # 参数的说明
-    default: "https://github.com/author/repos/releases/latest" # 默认值
+    required: true
+    description: "资源下载URL (通常指向GitHub Releases)"
+    default: "https://github.com/<author>/<repo>/releases/latest"
 
 branding:
-  icon: 'archive'  
+  icon: 'archive'
   color: 'blue'
+
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
-  

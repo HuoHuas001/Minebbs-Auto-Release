@@ -1,52 +1,35 @@
 {
   "name": "minebbs-auto-release",
-  "version": "0.0.1",
-  "private": true,
-  "description": "TypeScript template action",
-  "main": "lib/main.js",
+  "version": "1.0.0",
+  "description": "[![status](https://img.shields.io/github/workflow/status/HuoHuas001/Minebbs-Auto-Release/build-test?style=for-the-badge)](https://github.com/HuoHuas001/Minebbs-Auto-Release/actions)\r [\r ![Latest Tag](https://img.shields.io/github/v/tag/HuoHuas001/Minebbs-Auto-Release?label=LATEST%20TAG&style=for-the-badge)\r ![GitHub Releases (by Asset)](https://img.shields.io/github/downloads/HuoHuas001/Minebbs-Auto-Release/latest/total?style=for-the-badge)\r ](https://github.com/HuoHuas001/Minebbs-Auto-Release/releases/latest)\r # Minebbs-Auto-Release - Automatic release of versions of Minebbs resources\r ![Minebbs-Auto-Release](https://socialify.git.ci/HuoHuas001/Minebbs-Auto-Release/image?description=1&forks=1&issues=1&language=1&name=1&owner=1&pulls=1&stargazers=1&theme=Light)\r 👉English👈 👉[简体中文](README-zh.md)👈",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
-    "build": "tsc",
-    "format": "prettier --write 'src/*.ts'",
-    "format-check": "prettier --check 'src/*.ts'",
-    "lint": "eslint src/.ts",
-    "package": "ncc build --source-map --license licenses.txt",
+    "build": "ncc build src/main.ts -o dist --minify",
+    "package": "npm run build && git add dist/",
+    "lint": "eslint src/**/*.ts",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HuoHuas001/Minebbs-Auto-Release.git"
-  },
-  "keywords": [
-    "actions",
-    "node",
-    "setup",
-    "minebbs"
-  ],
-  "author": "HuoHua",
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@actions/core": "^1.6.0"
+    "@actions/core": "^1.11.1"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/node": "^16.10.5",
-    "@typescript-eslint/parser": "^5.8.1",
-    "@vercel/ncc": "^0.31.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-github": "^4.3.2",
-    "eslint-plugin-jest": "^25.3.2",
-    "https": "^1.0.0",
-    "jest": "^27.2.5",
-    "js-yaml": "^4.1.0",
-    "ts-jest": "^27.1.2",
-    "typescript": "^4.4.4"
-  },
-  "bugs": {
-    "url": "https://github.com/HuoHuas001/Minebbs-Auto-Release/issues"
-  },
-  "homepage": "https://github.com/HuoHuas001/Minebbs-Auto-Release#readme",
-  "directories": {
-    "lib": "lib"
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "@vercel/ncc": "^0.38.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-github": "^4.10.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.3.3"
   }
 }

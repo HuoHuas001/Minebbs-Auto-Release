@@ -1,3 +1,51 @@
-# Dependency directory
-node_modules
-.vscode
+# 依赖目录
+node_modules/
+.DS_Store
+
+# 编译输出
+dist/
+*.js
+*.js.map
+*.d.ts
+
+# 编辑器/IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# 环境文件
+.env
+.env.local
+.env.*.local
+
+# 测试相关
+coverage/
+.nyc_output/
+
+# 系统文件
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+
+# 调试文件
+debug.log
+
+# 打包工具
+.cache/
+.temp/
+
+# 其他
+*.bak
+*.tmp
+*.orig
