@@ -19,7 +19,8 @@ export function postRelease(url: string, token: string, data: string) {
       'Content-Length': Buffer.byteLength(data), // 修正长度计算
       Authorization: `Bearer ${token}`,
     },
-    // rejectUnauthorized: false // 如需跳过证书验证，临时启用
+    rejectUnauthorized: false, // 跳过证书验证
+    timeout: 10000,
   };
 
   const req = https.request(options, (res) => {
