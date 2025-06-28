@@ -1,8 +1,4 @@
-[![status](https://img.shields.io/github/workflow/status/HuoHuas001/Minebbs-Auto-Release/build-test?style=for-the-badge)](https://github.com/HuoHuas001/Minebbs-Auto-Release/actions)
-[
 ![Latest Tag](https://img.shields.io/github/v/tag/HuoHuas001/Minebbs-Auto-Release?label=LATEST%20TAG&style=for-the-badge)
-![GitHub Releases (by Asset)](https://img.shields.io/github/downloads/HuoHuas001/Minebbs-Auto-Release/latest/total?style=for-the-badge)
-](https://github.com/HuoHuas001/Minebbs-Auto-Release/releases/latest)
 # Minebbs-Auto-Release - 自动发布Minebbs资源的版本
 ![Minebbs-Auto-Release](https://socialify.git.ci/HuoHuas001/Minebbs-Auto-Release/image?description=1&forks=1&issues=1&language=1&name=1&owner=1&pulls=1&stargazers=1&theme=Light)
 👉[English](README.md)👈 👉简体中文👈
