@@ -1,5 +1,5 @@
-import https from 'https';
-import core from '@actions/core';
+import * as https from 'https';
+import * as core from '@actions/core';
 
 /**
  * @description HTTP client for the API

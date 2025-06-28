@@ -1,6 +1,7 @@
 # 依赖目录
 node_modules/
 .DS_Store
+test*
 
 # 编译输出
 dist/

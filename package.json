@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "ncc build src/main.ts -o dist --minify",
+    "build": "ncc build src/main.ts -o dist --minify ",
     "package": "npm run build && git add dist/",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
